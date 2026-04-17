@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budi Sunaryo — Researcher & Lecturer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #fafaf8; --fg: #1a1a18; --fg-muted: #6b6b66; --fg-subtle: #a8a8a2;
+      --border: #e4e4df; --accent: #2a6049; --accent-light: #eaf3ee; --accent-text: #1e4535;
+      --serif: "DM Serif Display", Georgia, serif;
+      --sans: "DM Sans", system-ui, sans-serif;
+      --mono: "DM Mono", "Courier New", monospace;
+      --max: 760px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 4.5rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    nav .inner { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--fg); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--fg-muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--fg); text-decoration: none; }
+
+    /* HERO */
+    #hero { padding: 6rem 0 4.5rem; border-top: none; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 160px; gap: 3rem; align-items: start; }
+    .hero-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--border); display: block; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-family: var(--mono); color: var(--accent-text); background: var(--accent-light); border: 1px solid #c4ddd0; border-radius: 100px; padding: 4px 12px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ""; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    .hero-name { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .hero-degree { font-family: var(--mono); font-size: 13px; color: var(--fg-subtle); margin-bottom: 0.6rem; letter-spacing: 0.04em; }
+    .hero-title { font-family: var(--serif); font-style: italic; font-size: clamp(1rem, 2.3vw, 1.25rem); color: var(--accent); margin-bottom: 1.4rem; }
+    .hero-bio { font-size: 0.975rem; color: var(--fg-muted); max-width: 520px; line-height: 1.8; margin-bottom: 1.75rem; font-weight: 300; }
+
+    /* METRICS */
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.75rem; }
+    .metric-card { background: #f0f0eb; border-radius: 8px; padding: 0.85rem 1rem; }
+    .metric-value { font-size: 22px; font-weight: 500; color: var(--fg); line-height: 1; margin-bottom: 4px; }
+    .metric-label { font-size: 11px; font-family: var(--mono); color: var(--fg-subtle); line-height: 1.3; }
+
+    .hero-ids { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 2rem; }
+    .id-badge { font-family: var(--mono); font-size: 11px; color: var(--fg-muted); background: #f0f0eb; border: 1px solid var(--border); border-radius: 4px; padding: 3px 10px; }
+    .id-badge a { color: inherit; }
+    .id-badge a:hover { color: var(--accent); text-decoration: none; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; }
+    .btn-primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn-primary:hover { background: #333330; text-decoration: none; color: var(--bg); }
+    .btn-ghost { background: transparent; color: var(--fg-muted); border-color: var(--border); }
+    .btn-ghost:hover { background: #f0f0eb; color: var(--fg); text-decoration: none; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 180px 1fr; gap: 3rem; align-items: start; }
+    .about-meta { display: flex; flex-direction: column; gap: 1.2rem; }
+    .meta-label { font-size: 11px; font-family: var(--mono); color: var(--fg-subtle); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+    .meta-value { font-size: 13.5px; color: var(--fg); line-height: 1.5; }
+    .about-text h2 { font-family: var(--serif); font-size: 1.85rem; line-height: 1.2; margin-bottom: 1.25rem; }
+    .about-text p { color: var(--fg-muted); font-weight: 300; margin-bottom: 1rem; font-size: 0.975rem; }
+    .skills-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 1.5rem; }
+    .skill-tag { font-family: var(--mono); font-size: 11px; color: var(--fg-muted); background: #f0f0eb; border: 1px solid var(--border); border-radius: 4px; padding: 3px 9px; }
+
+    /* SECTION SHARED */
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
+    .section-title { font-family: var(--serif); font-size: 1.85rem; }
+    .section-link { font-size: 13px; color: var(--fg-muted); }
+
+    /* RESEARCH */
+    .research-list { display: flex; flex-direction: column; }
+    .research-item { display: grid; grid-template-columns: 52px 1fr; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .research-item:first-child { border-top: 1px solid var(--border); }
+    .research-year { font-family: var(--mono); font-size: 12px; color: var(--fg-subtle); padding-top: 3px; }
+    .research-title { font-size: 14px; font-weight: 500; color: var(--fg); margin-bottom: 5px; line-height: 1.55; }
+    .research-funder { display: inline-block; font-family: var(--mono); font-size: 11px; color: var(--accent-text); background: var(--accent-light); border: 1px solid #c4ddd0; border-radius: 3px; padding: 1px 7px; }
+
+    /* PUBLICATIONS */
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item { display: grid; grid-template-columns: 44px 1fr; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; }
+    .pub-item:first-child { border-top: 1px solid var(--border); }
+    .pub-year { font-family: var(--mono); font-size: 11px; color: var(--fg-subtle); padding-top: 3px; }
+    .pub-title { font-size: 13.5px; font-weight: 500; color: var(--fg); line-height: 1.5; margin-bottom: 3px; transition: color 0.15s; }
+    .pub-item:hover .pub-title { color: var(--accent); }
+    .pub-venue { font-size: 12px; color: var(--fg-muted); font-family: var(--mono); }
+    .pub-q { display: inline-block; font-size: 10px; font-family: var(--mono); padding: 1px 5px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+    .q1 { background: #eaf3ee; color: var(--accent-text); border: 1px solid #c4ddd0; }
+    .q2 { background: #e6f1fb; color: #0c447c; border: 1px solid #b5d4f4; }
+    .q3 { background: #faeeda; color: #633806; border: 1px solid #fac775; }
+
+    /* CONTACT */
+    .contact-intro { max-width: 500px; margin-bottom: 2.5rem; }
+    .contact-intro h2 { font-family: var(--serif); font-size: 1.85rem; margin-bottom: 0.75rem; }
+    .contact-intro p { color: var(--fg-muted); font-weight: 300; font-size: 0.975rem; }
+    .contact-links { display: flex; flex-direction: column; }
+    .contact-link { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--fg); transition: color 0.15s; }
+    .contact-link:first-child { border-top: 1px solid var(--border); }
+    .contact-link:hover { color: var(--accent); text-decoration: none; }
+    .contact-link-left { display: flex; align-items: center; gap: 12px; }
+    .contact-icon { width: 32px; height: 32px; background: #f0f0eb; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--fg-muted); font-weight: 500; flex-shrink: 0; }
+    .contact-name { font-size: 14px; font-weight: 500; }
+    .contact-handle { font-size: 12px; color: var(--fg-muted); font-family: var(--mono); }
+    .contact-arrow { color: var(--fg-subtle); font-size: 15px; }
+
+    /* FOOTER */
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); }
+    footer .inner { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .footer-left { font-family: var(--mono); font-size: 12px; color: var(--fg-subtle); }
+    .footer-right { font-size: 12px; color: var(--fg-subtle); }
+
+    /* RESPONSIVE */
+    @media (max-width: 620px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { width: 100px; height: 100px; order: -1; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-meta { flex-direction: row; flex-wrap: wrap; gap: 1rem 2rem; }
+      .research-item, .pub-item { grid-template-columns: 1fr; gap: 2px; }
+      section { padding: 3rem 0; }
+      #hero { padding: 3.5rem 0 3rem; }
+      .nav-links { gap: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="nav-logo">inibudi.github.io</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-tag">Lecturer & Researcher · Universitas Bung Hatta, Indonesia</div>
+          <h1 class="hero-name">Budi Sunaryo</h1>
+          <p class="hero-degree">S.T., M.T. &nbsp;&middot;&nbsp; NIDN 1030058102</p>
+          <p class="hero-title">Researcher in Computer Networks &amp; Machine Learning</p>
+          <p class="hero-bio">
+            Lecturer at the Computer Network Engineering Technology programme, Faculty of Industrial Technology, Universitas Bung Hatta.
+            Research focus: Information Technology, Computer Networks, Artificial Intelligence, Machine Learning, Internet of Things, and Data Analytics.
+            Currently completing a doctoral programme at Universitas Andalas.
+          </p>
+
+          <div class="metrics">
+            <div class="metric-card">
+              <div class="metric-value">317</div>
+              <div class="metric-label">Citations<br>(Google Scholar)</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">12</div>
+              <div class="metric-label">H-index<br>(Google Scholar)</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">5</div>
+              <div class="metric-label">H-index<br>(Scopus)</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value">489</div>
+              <div class="metric-label">SINTA Score<br>(Total)</div>
+            </div>
+          </div>
+
+          <div class="hero-ids">
+            <span class="id-badge"><a href="https://sinta.kemdikbud.go.id/authors/profile/6767206" target="_blank">Sinta: 6767206</a></span>
+            <span class="id-badge"><a href="https://scholar.google.com/citations?user=_DbBfWcAAAAJ" target="_blank">Google Scholar</a></span>
+            <span class="id-badge"><a href="https://www.scopus.com/authid/detail.uri?authorId=57211253623" target="_blank">Scopus: 57211253623</a></span>
+            <span class="id-badge"><a href="https://orcid.org/0000-0001-6798-2756" target="_blank">ORCID: 0000-0001-6798-2756</a></span>
+            <span class="id-badge">WoS: AAX-6789-2020</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#research" class="btn btn-primary">View Research</a>
+            <a href="#publications" class="btn btn-ghost">Publications</a>
+            <a href="mailto:budi.sunaryo@bunghatta.ac.id" class="btn btn-ghost">Contact Me</a>
+          </div>
+        </div>
+        <div>
+          <img class="hero-photo" src="data:image/jpeg;base64,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" alt="Budi Sunaryo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-meta">
+          <div>
+            <div class="meta-label">Institution</div>
+            <div class="meta-value">Universitas Bung Hatta</div>
+          </div>
+          <div>
+            <div class="meta-label">Programme</div>
+            <div class="meta-value">TRKJ, FTI</div>
+          </div>
+          <div>
+            <div class="meta-label">Position</div>
+            <div class="meta-value">Lektor (III/b)</div>
+          </div>
+          <div>
+            <div class="meta-label">NIDN</div>
+            <div class="meta-value">1030058102</div>
+          </div>
+          <div>
+            <div class="meta-label">Location</div>
+            <div class="meta-value">Padang,<br>West Sumatra</div>
+          </div>
+          <div>
+            <div class="meta-label">Ph.D. (in progress)</div>
+            <div class="meta-value">Universitas Andalas</div>
+          </div>
+          <div>
+            <div class="meta-label">Website</div>
+            <div class="meta-value"><a href="https://inibudi.github.io" target="_blank">inibudi.github.io</a></div>
+          </div>
+        </div>
+        <div class="about-text">
+          <h2>About me</h2>
+          <p>
+            I am a lecturer and researcher specialising in machine learning for computer networks.
+            My doctoral dissertation focuses on a <em>Adaptive Bandwidth Control Based on Machine Learning</em>.
+          </p>
+          <p>
+            I serve as Managing Editor of Jurnal RESTI (Scopus (Q3), Sinta 2), and as a reviewer for Elsevier journals including Computer Networks (Q1) and Engineering Applications of Artificial Intelligence (Q1). I am also an active board member of IAII Nusantara and Badan Kejuruan Informatika &ndash; PII.
+          </p>
+          <div class="skills-row">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">QoS / Networking</span>
+            <span class="skill-tag">Deep Learning</span>
+            <span class="skill-tag">WebGIS</span>
+            <span class="skill-tag">IoT</span>
+            <span class="skill-tag">Digital Forensics</span>
+            <span class="skill-tag">Web Development</span>
+            <span class="skill-tag">Data Mining</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">LaTeX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Research</h2>
+      </div>
+      <div class="research-list">
+
+        <div class="research-item">
+          <div class="research-year">2025</div>
+          <div>
+            <div class="research-title">SVM-Based Dynamic Penalty System for Bandwidth Control Through Website Text Content Classification</div>
+            <span class="research-funder">Diktisaintek</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2025</div>
+          <div>
+            <div class="research-title">AI-Chatbot Academic Service System Based on Open-Source LLM for Universitas Bung Hatta</div>
+            <span class="research-funder">Univ. Bung Hatta</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2025</div>
+          <div>
+            <div class="research-title">AI-Chatbot Web Platform for Cultural Heritage Interpretation, VR, and Tourism English &mdash; Sawahlunto World Heritage</div>
+            <span class="research-funder">Diktisaintek</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2024</div>
+          <div>
+            <div class="research-title">ML-Based Negative Website Content Detection System for Computer Networks</div>
+            <span class="research-funder">Univ. Bung Hatta</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2024</div>
+          <div>
+            <div class="research-title">Smartphone Camera-Based Automatic Breast Cancer Classification via ML Image Analysis</div>
+            <span class="research-funder">Dikti</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2024</div>
+          <div>
+            <div class="research-title">Intradialytic Stationary Bicycle with IoT-Based Monitoring and Time Control System</div>
+            <span class="research-funder">Dikti</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2023</div>
+          <div>
+            <div class="research-title">Dynamic Penalty Model for QoS in Computer Networks Based on Artificial Neural Network</div>
+            <span class="research-funder">Dikti</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2022</div>
+          <div>
+            <div class="research-title">Smart Irrigation Information System Needs Analysis &mdash; Agam Regency Public Works Office</div>
+            <span class="research-funder">Univ. Bung Hatta</span>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-year">2022</div>
+          <div>
+            <div class="research-title">WebGIS for Investment Potential Sectors</div>
+            <span class="research-funder">DPMPTSP Sijunjung</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Selected Publications</h2>
+        <a href="https://scholar.google.com/citations?user=_DbBfWcAAAAJ" target="_blank" class="section-link">Full list on Google Scholar &rarr;</a>
+      </div>
+      <div class="pub-list">
+
+        <a href="https://ieeexplore.ieee.org/abstract/document/11413661/" target="_blank" class="pub-item">
+          <div class="pub-year">2026</div>
+          <div>
+            <div class="pub-title">Real-Time Mining of Router Domain Logs for Temporal and Behavioural Analysis in Smart Network Environments</div>
+            <div class="pub-venue">IEEEXplore &mdash; ICSINTESA 2025 <span class="pub-q q2">IEEE Xplore</span></div>
+          </div>
+        </a>
+
+        <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.310127" target="_blank" class="pub-item">
+          <div class="pub-year">2026</div>
+          <div>
+            <div class="pub-title">AI-Driven Eye-Controlled Virtual Keyboard Systems for Motor-Impaired Users: A Systematic Literature Review</div>
+            <div class="pub-venue">Ing&eacute;nierie des Syst&egrave;mes d&apos;Information, Vol. 31 No. 1, 277&ndash;291 <span class="pub-q q2">Scopus (Q3)</span></div>
+          </div>
+        </a>
+
+        <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.310104" target="_blank" class="pub-item">
+          <div class="pub-year">2026</div>
+          <div>
+            <div class="pub-title">An IoT-Based Real-Time Monitoring System for Intradialytic Cycling in Hemodialysis Patients</div>
+            <div class="pub-venue">Ing&eacute;nierie des Syst&egrave;mes d&apos;Information, Vol. 31 No. 1, 27&ndash;35 <span class="pub-q q2">Scopus (Q3)</span></div>
+          </div>
+        </a>
+
+        <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.300219" target="_blank" class="pub-item">
+          <div class="pub-year">2025</div>
+          <div>
+            <div class="pub-title">Harnessing CNN for Early Breast Cancer Detection: Enhancing Precision in Image-Based Diagnosis</div>
+            <div class="pub-venue">Ing&eacute;nierie des Syst&egrave;mes d&apos;Information, Vol. 30 No. 2, 473&ndash;482 <span class="pub-q q2">Scopus (Q3)</span></div>
+          </div>
+        </a>
+
+        <a href="https://ijisae.org/index.php/IJISAE/article/view/6174" target="_blank" class="pub-item">
+          <div class="pub-year">2024</div>
+          <div>
+            <div class="pub-title">A Systematic Review of Noninvasive Blood Glucose Estimation Using Near Infrared</div>
+            <div class="pub-venue">IJISAE, Vol. 12 No. 4, 59&ndash;76 <span class="pub-q q2">Scopus (Q3)</span></div>
+          </div>
+        </a>
+
+        <a href="https://www.jurnal.iaii.or.id/index.php/RESTI/article/view/4810" target="_blank" class="pub-item">
+          <div class="pub-year">2023</div>
+          <div>
+            <div class="pub-title">A Systematic Literature Review of Automation Quality of Service in Computer Networks: Research Trends, Datasets, and Methods</div>
+            <div class="pub-venue">Jurnal RESTI, Vol. 7 No. 2, 353&ndash;366 <span class="pub-q q1">Scopus (Q3) &middot; Sinta 2</span></div>
+          </div>
+        </a>
+
+        <a href="https://doi.org/10.1016/j.dib.2019.104610" target="_blank" class="pub-item">
+          <div class="pub-year">2019</div>
+          <div>
+            <div class="pub-title">Dataset: Smartphone Usage of International Tourist Behavior</div>
+            <div class="pub-venue">Data in Brief, Vol. 27, 104610 <span class="pub-q q3">Scopus Q2</span></div>
+          </div>
+        </a>
+
+        <a href="https://doi.org/10.29207/resti.v3i3.1355" target="_blank" class="pub-item">
+          <div class="pub-year">2019</div>
+          <div>
+            <div class="pub-title">Location Tracking of RTLH Survey Officers Using Android GPS and WebGIS</div>
+            <div class="pub-venue">Jurnal RESTI, Vol. 3 No. 3, 552&ndash;559 <span class="pub-q q1">Sinta 2</span></div>
+          </div>
+        </a>
+
+        <a href="https://doi.org/10.25077/TEKNOSI.v2i1.2016.75-82" target="_blank" class="pub-item">
+          <div class="pub-year">2016</div>
+          <div>
+            <div class="pub-title">Web-Based Electronic Device Management Information System</div>
+            <div class="pub-venue">Jurnal Nasional Teknologi dan Sistem Informasi, Vol. 2 No. 1, 75&ndash;82 <span class="pub-q q1">Sinta 3</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-intro">
+        <h2>Get in touch</h2>
+        <p>
+          Open to research collaborations, reviewer invitations, conference talks, and discussions on computer networks, machine learning, and intelligent systems.
+        </p>
+      </div>
+      <div class="contact-links">
+
+        <a href="http://sunaryo.id" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">WEB</div>
+            <div>
+              <div class="contact-name">Personal Website</div>
+              <div class="contact-handle">inibudi.github.io</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="mailto:budi.sunaryo@bunghatta.ac.id" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">@</div>
+            <div>
+              <div class="contact-name">Academic Email</div>
+              <div class="contact-handle">budi.sunaryo@bunghatta.ac.id</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="mailto:budi.sunaryo@gmail.com" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">@</div>
+            <div>
+              <div class="contact-name">Personal Email</div>
+              <div class="contact-handle">budi.sunaryo@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="https://github.com/inibudi" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">GH</div>
+            <div>
+              <div class="contact-name">GitHub</div>
+              <div class="contact-handle">github.com/inibudi</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/budisunaryo/" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">in</div>
+            <div>
+              <div class="contact-name">LinkedIn</div>
+              <div class="contact-handle">linkedin.com/in/budisunaryo</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="https://scholar.google.com/citations?user=_DbBfWcAAAAJ" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">GS</div>
+            <div>
+              <div class="contact-name">Google Scholar</div>
+              <div class="contact-handle">317 citations &middot; H-index 12</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="https://orcid.org/0000-0001-6798-2756" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">ORC</div>
+            <div>
+              <div class="contact-name">ORCID</div>
+              <div class="contact-handle">0000-0001-6798-2756</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=57211253623" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">SC</div>
+            <div>
+              <div class="contact-name">Scopus</div>
+              <div class="contact-handle">57211253623 &middot; H-index 5</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+        <a href="http://www.jurnal.iaii.or.id/index.php/RESTI/about/editorialTeam" target="_blank" class="contact-link">
+          <div class="contact-link-left">
+            <div class="contact-icon">ED</div>
+            <div>
+              <div class="contact-name">Managing Editor &mdash; Jurnal RESTI</div>
+              <div class="contact-handle">Scopus (Q3) &middot; Sinta 2</div>
+            </div>
+          </div>
+          <div class="contact-arrow">&nearr;</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <span class="footer-left">Budi Sunaryo, S.T., M.T.</span>
+    <span class="footer-right">Updated March 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
